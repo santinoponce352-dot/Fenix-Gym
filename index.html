@@ -1,1288 +1,708 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Fénix Gym | Entrená. Superate.</title>
-
-<style>
-:root{
-  --bg:#090909;
-  --panel:#141414;
-  --orange:#ff7a00;
-  --orange2:#ff9d2e;
-  --text:#f5f5f5;
-  --muted:#aaa;
-  --line:#292929;
-}
-
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
-html{
-  scroll-behavior:smooth;
-}
-
-body{
-  font-family:Arial,Helvetica,sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  line-height:1.5;
-}
-
-a{
-  text-decoration:none;
-  color:inherit;
-}
-
-.container{
-  width:min(1120px,92%);
-  margin:auto;
-}
-
-/* ================= HEADER ================= */
-
-header{
-  position:sticky;
-  top:0;
-  z-index:50;
-  background:rgba(9,9,9,.96);
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--line);
-}
-
-nav{
-  min-height:72px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:20px;
-}
-
-.logo{
-  font-size:25px;
-  font-weight:900;
-  letter-spacing:1px;
-}
-
-.logo span{
-  color:var(--orange);
-}
-
-.navlinks{
-  display:flex;
-  gap:22px;
-  align-items:center;
-}
-
-.navlinks a{
-  color:#ddd;
-  font-size:14px;
-}
-
-.navlinks a:hover{
-  color:var(--orange2);
-}
-
-/* 3 RAYITAS */
-
-.menu-toggle{
-  display:none;
-  width:44px;
-  height:44px;
-  border:1px solid #333;
-  border-radius:10px;
-  background:#151515;
-  cursor:pointer;
-  align-items:center;
-  justify-content:center;
-  flex-direction:column;
-  gap:5px;
-}
-
-.menu-toggle span{
-  width:21px;
-  height:2px;
-  background:white;
-  border-radius:2px;
-}
-
-.mobile-menu{
-  display:none;
-  padding-bottom:16px;
-}
-
-.mobile-menu.open{
-  display:block;
-}
-
-.mobile-menu a{
-  display:block;
-  padding:12px 14px;
-  border:1px solid #292929;
-  border-radius:10px;
-  margin-top:8px;
-  background:#111;
-  color:#ddd;
-}
-
-/* ================= BOTONES ================= */
-
-.btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding:12px 18px;
-  border-radius:9px;
-  background:var(--orange);
-  color:#111;
-  font-weight:800;
-  border:1px solid var(--orange);
-  cursor:pointer;
-  min-height:44px;
-}
-
-.btn:hover{
-  filter:brightness(1.08);
-  transform:translateY(-2px);
-}
-
-.btn.secondary{
-  background:transparent;
-  color:white;
-  border-color:#444;
-}
-
-.mini{
-  padding:9px 13px;
-  min-height:38px;
-  font-size:13px;
-}
-
-/* ================= HERO ================= */
-
-.hero{
-  min-height:620px;
-  display:flex;
-  align-items:center;
-  background:
-    radial-gradient(
-      circle at 75% 35%,
-      rgba(255,122,0,.22),
-      transparent 32%
-    ),
-    linear-gradient(
-      90deg,
-      #090909 35%,
-      rgba(9,9,9,.72),
-      #090909
-    );
-}
-
-.hero-content{
-  padding:80px 0;
-}
-
-.kicker,
-.tag{
-  color:var(--orange2);
-  text-transform:uppercase;
-  font-weight:800;
-  font-size:12px;
-  letter-spacing:2px;
-}
-
-h1{
-  font-size:clamp(45px,7vw,82px);
-  line-height:.95;
-  max-width:760px;
-  margin:15px 0 22px;
-}
-
-h1 span{
-  color:var(--orange);
-}
-
-.hero p{
-  max-width:600px;
-  color:#c6c6c6;
-  font-size:18px;
-}
-
-.actions{
-  display:flex;
-  gap:12px;
-  flex-wrap:wrap;
-  margin-top:28px;
-}
-
-/* ================= SECCIONES ================= */
-
-.section{
-  padding:80px 0;
-}
-
-.section-head{
-  display:flex;
-  justify-content:space-between;
-  gap:30px;
-  align-items:end;
-  margin-bottom:28px;
-}
-
-.section-head h2{
-  font-size:36px;
-  margin-top:5px;
-}
-
-.section-head p{
-  color:var(--muted);
-  max-width:520px;
-}
-
-/* ================= PLAN ================= */
-
-.card{
-  background:linear-gradient(145deg,var(--panel),#101010);
-  border:1px solid var(--line);
-  border-radius:15px;
-  overflow:hidden;
-}
-
-.card-body{
-  padding:26px;
-}
-
-.card h3{
-  font-size:22px;
-  margin:7px 0;
-}
-
-.card p{
-  color:var(--muted);
-  font-size:14px;
-}
-
-.price{
-  font-size:34px;
-  font-weight:900;
-  margin:16px 0;
-}
-
-.price small{
-  font-size:13px;
-  color:var(--muted);
-  font-weight:normal;
-}
-
-/* ================= STORE ================= */
-
-.store-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:18px;
-}
-
-.product{
-  display:grid;
-  grid-template-columns:180px 1fr;
-  min-height:220px;
-}
-
-.product-img{
-  min-height:220px;
-  background:#1b1b1b;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
-}
-
-.product-img img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
-.product-body{
-  padding:20px;
-}
-
-.product-body h3{
-  font-size:24px;
-  margin:8px 0;
-}
-
-.product-price{
-  font-weight:900;
-  font-size:20px;
-  margin-top:15px;
-}
-
-/* ================= FOTOS GYM ================= */
-
-.gym-gallery{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:18px;
-}
-
-.gym-photo{
-  background:#111;
-  border:1px solid var(--line);
-  border-radius:18px;
-  overflow:hidden;
-}
-
-.gym-photo img{
-  width:100%;
-  display:block;
-  max-height:680px;
-  object-fit:cover;
-}
-
-.gym-photo-caption{
-  padding:18px 20px;
-}
-
-.gym-photo-caption h3{
-  font-size:24px;
-  margin:4px 0 6px;
-}
-
-.gym-photo-caption p{
-  color:var(--muted);
-}
-
-/* ================= CONTACTO ================= */
-
-.contact{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:18px;
-}
-
-.contact .card{
-  padding:25px;
-}
-
-/* ================= MODAL ================= */
-
-.modal-overlay{
-  position:fixed;
-  inset:0;
-  z-index:100;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  background:rgba(0,0,0,.78);
-}
-
-.modal-overlay.show{
-  display:flex;
-}
-
-.modal{
-  width:min(630px,100%);
-  background:#151515;
-  border:1px solid #303030;
-  border-radius:24px;
-  padding:38px 40px 40px;
-  position:relative;
-  box-shadow:0 25px 80px rgba(0,0,0,.65);
-}
-
-.modal-close{
-  position:absolute;
-  right:25px;
-  top:20px;
-  border:0;
-  background:transparent;
-  color:white;
-  font-size:34px;
-  cursor:pointer;
-}
-
-.modal h2{
-  font-size:38px;
-  margin:10px 0 30px;
-}
-
-.modal label{
-  display:block;
-  font-size:18px;
-  margin-bottom:8px;
-}
-
-.modal input{
-  width:100%;
-  height:58px;
-  background:#0d0d0d;
-  color:white;
-  border:1px solid #333;
-  border-radius:12px;
-  padding:0 16px;
-  font-size:17px;
-  margin-bottom:22px;
-}
-
-.modal-submit{
-  width:100%;
-  height:60px;
-  border:0;
-  border-radius:12px;
-  cursor:pointer;
-  font-size:18px;
-  font-weight:800;
-  background:linear-gradient(
-    90deg,
-    var(--orange),
-    var(--orange2)
-  );
-}
-
-/* ================= FOOTER ================= */
-
-footer{
-  border-top:1px solid var(--line);
-  padding:28px 0;
-  color:#888;
-  font-size:13px;
-}
-
-/* ================= CELULAR ================= */
-
-@media(max-width:800px){
-
-  .navlinks{
-    display:none;
-  }
-
-  .menu-toggle{
-    display:flex;
-  }
-
-  nav > .btn{
-    display:none;
-  }
-
-  .store-grid,
-  .contact{
-    grid-template-columns:1fr;
-  }
-
-  .product{
-    grid-template-columns:120px 1fr;
-  }
-
-  .section-head{
-    display:block;
-  }
-
-  .section-head p{
-    margin-top:12px;
-  }
-}
-
-@media(max-width:520px){
-
-  .product{
-    grid-template-columns:1fr;
-  }
-
-  .product-img{
-    height:230px;
-  }
-
-  .hero{
-    min-height:560px;
-  }
-
-  .modal{
-    padding:35px 25px;
-  }
-
-  .modal h2{
-    font-size:30px;
-  }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Fénix Club</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #050505;
+      color: #ffffff;
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(5, 5, 5, 0.95);
+      border-bottom: 1px solid #222;
+      backdrop-filter: blur(10px);
+    }
+
+    .navbar {
+      max-width: 1200px;
+      margin: auto;
+      height: 75px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 25px;
+    }
+
+    .logo {
+      font-size: 27px;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+
+    .logo span {
+      color: #ff5a16;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: #ddd;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: #ff641c;
+    }
+
+    .menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 32px;
+      cursor: pointer;
+    }
+
+    .mobile-menu {
+      display: none;
+      background: #111;
+      border-top: 1px solid #222;
+    }
+
+    .mobile-menu a {
+      display: block;
+      padding: 16px 25px;
+      border-bottom: 1px solid #222;
+      color: white;
+      font-weight: bold;
+    }
+
+    .hero {
+      min-height: 650px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 70px 20px;
+      background:
+        linear-gradient(rgba(0,0,0,.68), rgba(0,0,0,.9)),
+        url("gimnasio.jpg") center/cover;
+    }
+
+    .hero-content {
+      max-width: 850px;
+    }
+
+    .tag {
+      color: #ff5a16;
+      font-weight: 900;
+      letter-spacing: 3px;
+      margin-bottom: 15px;
+    }
+
+    .hero h1 {
+      font-size: clamp(42px, 7vw, 80px);
+      line-height: 1;
+      margin-bottom: 25px;
+    }
+
+    .hero h1 span {
+      color: #ff5a16;
+    }
+
+    .hero p {
+      font-size: 20px;
+      color: #ccc;
+      margin-bottom: 30px;
+    }
+
+    .btn {
+      display: inline-block;
+      background: linear-gradient(90deg, #ff4f14, #ff9b21);
+      color: #080808;
+      padding: 14px 25px;
+      border-radius: 10px;
+      font-weight: 900;
+      border: none;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.1);
+    }
+
+    section {
+      max-width: 1200px;
+      margin: auto;
+      padding: 75px 25px;
+    }
+
+    .section-title {
+      font-size: 40px;
+      margin-bottom: 12px;
+    }
+
+    .section-title span {
+      color: #ff5a16;
+    }
+
+    .section-subtitle {
+      color: #aaa;
+      margin-bottom: 35px;
+    }
+
+    .plan-card {
+      max-width: 650px;
+      margin: auto;
+      background: linear-gradient(145deg, #151515, #0c0c0c);
+      border: 1px solid #ff5a16;
+      border-radius: 20px;
+      padding: 35px;
+      text-align: center;
+      box-shadow: 0 0 30px rgba(255, 90, 22, 0.12);
+    }
+
+    .plan-card h3 {
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
+
+    .price {
+      color: #ff681c;
+      font-size: 45px;
+      font-weight: 900;
+      margin: 15px 0;
+    }
+
+    .plan-card ul {
+      list-style: none;
+      text-align: left;
+      margin: 25px 0;
+    }
+
+    .plan-card li {
+      padding: 9px 0;
+      border-bottom: 1px solid #222;
+    }
+
+    .promo {
+      margin-top: 25px;
+      padding: 25px;
+      background: #121212;
+      border: 1px solid #333;
+      border-radius: 18px;
+      text-align: center;
+    }
+
+    .promo h3 {
+      color: #ff681c;
+      font-size: 27px;
+      margin-bottom: 5px;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    .product-card {
+      background: #111;
+      border: 1px solid #252525;
+      border-radius: 18px;
+      overflow: hidden;
+      transition: 0.25s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+      border-color: #ff5a16;
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      display: block;
+      background: #222;
+    }
+
+    .product-info {
+      padding: 22px;
+    }
+
+    .product-info h3 {
+      font-size: 25px;
+      margin-bottom: 8px;
+    }
+
+    .product-info p {
+      color: #aaa;
+      margin-bottom: 18px;
+    }
+
+    .product-price {
+      color: #ff681c;
+      font-size: 27px;
+      font-weight: 900;
+      margin-bottom: 17px;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 360px;
+      object-fit: cover;
+      border-radius: 18px;
+      border: 1px solid #292929;
+    }
+
+    .drinks {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .drink {
+      padding: 30px;
+      text-align: center;
+      background: #111;
+      border: 1px solid #292929;
+      border-radius: 18px;
+    }
+
+    .drink h3 {
+      font-size: 25px;
+      margin-bottom: 8px;
+    }
+
+    .drink p {
+      color: #aaa;
+    }
+
+    .drink-price {
+      color: #ff681c;
+      font-size: 24px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      border-top: 1px solid #222;
+      color: #888;
+    }
+
+    footer strong {
+      color: #ff5a16;
+    }
+
+    @media (max-width: 800px) {
+
+      .nav-links {
+        display: none;
+      }
+
+      .menu-btn {
+        display: block;
+      }
+
+      .mobile-menu.active {
+        display: block;
+      }
+
+      .hero {
+        min-height: 570px;
+      }
+
+      .hero h1 {
+        font-size: 48px;
+      }
+
+      .hero p {
+        font-size: 17px;
+      }
+
+      .products,
+      .drinks {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery img {
+        height: 280px;
+      }
+
+      section {
+        padding: 55px 18px;
+      }
+
+      .section-title {
+        font-size: 32px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- ================= HEADER ================= -->
-
 <header>
+  <nav class="navbar">
 
-<div class="container">
+    <div class="logo">
+      FÉNIX <span>CLUB</span>
+    </div>
 
-<nav>
+    <ul class="nav-links">
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#plan">Membresía</a></li>
+      <li><a href="#productos">Productos</a></li>
+      <li><a href="#gimnasio">Gimnasio</a></li>
+    </ul>
 
-<a class="logo" href="#inicio">
-FÉNIX<span>GYM</span>
-</a>
+    <button class="menu-btn" onclick="toggleMenu()">
+      ☰
+    </button>
 
-<div class="navlinks">
+  </nav>
 
-<a href="#inicio">Inicio</a>
-
-<a href="#planes">Membresías</a>
-
-<a href="#tienda">Fénix Store</a>
-
-<a href="#fotos">Fotos</a>
-
-<a href="#contacto">Contacto</a>
-
-</div>
-
-<!-- 3 RAYITAS -->
-
-<button
-class="menu-toggle"
-onclick="toggleMenu()"
-aria-label="Abrir menú">
-
-<span></span>
-<span></span>
-<span></span>
-
-</button>
-
-<a class="btn mini" href="#planes">
-Ver plan
-</a>
-
-</nav>
-
-<!-- MENU CELULAR -->
-
-<div class="mobile-menu" id="mobileMenu">
-
-<a href="#inicio" onclick="closeMenu()">
-Inicio
-</a>
-
-<a href="#planes" onclick="closeMenu()">
-Membresías
-</a>
-
-<a href="#tienda" onclick="closeMenu()">
-Fénix Store
-</a>
-
-<a href="#fotos" onclick="closeMenu()">
-Fotos
-</a>
-
-<a href="#contacto" onclick="closeMenu()">
-Contacto
-</a>
-
-</div>
-
-</div>
-
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#inicio" onclick="closeMenu()">Inicio</a>
+    <a href="#plan" onclick="closeMenu()">Membresía</a>
+    <a href="#productos" onclick="closeMenu()">Productos</a>
+    <a href="#gimnasio" onclick="closeMenu()">Gimnasio</a>
+  </div>
 </header>
 
 
-<main>
-
-<!-- ================= INICIO ================= -->
-
+<!-- INICIO -->
 <section class="hero" id="inicio">
+  <div class="hero-content">
 
-<div class="container hero-content">
+    <div class="tag">FÉNIX CLUB</div>
 
-<div class="kicker">
-Fénix Gym
-</div>
+    <h1>
+      Un solo plan.<br>
+      Todo <span>Fénix.</span>
+    </h1>
 
-<h1>
-ENTRENÁ.<br>
-<span>SUPERATE.</span><br>
-VOLVÉ MÁS FUERTE.
-</h1>
+    <p>
+      Entrená, mejorá y formá parte de Fénix Club.
+    </p>
 
-<p>
-Un espacio para entrenar, progresar y sentirte parte
-de la comunidad Fénix.
-</p>
+    <a href="#plan" class="btn">
+      Ver plan
+    </a>
 
-<div class="actions">
+  </div>
+</section>
 
-<a class="btn" href="#planes">
-Quiero entrenar
-</a>
 
-<a class="btn secondary" href="#tienda">
-Ver Fénix Store
-</a>
+<!-- PLAN -->
+<section id="plan">
 
-</div>
+  <h2 class="section-title">
+    Nuestra <span>membresía</span>
+  </h2>
 
-</div>
+  <p class="section-subtitle">
+    Un solo plan, simple y directo.
+  </p>
+
+  <div class="plan-card">
+
+    <h3>Plan Fénix Club</h3>
+
+    <div class="price">$35.000</div>
+
+    <p>
+      Membresía mensual.
+    </p>
+
+    <ul>
+      <li>✓ Acceso al gimnasio</li>
+      <li>✓ Entrenamiento</li>
+      <li>✓ Instalaciones Fénix Club</li>
+      <li>✓ Membresía mensual</li>
+    </ul>
+
+    <a
+      class="btn"
+      href="https://wa.me/5491173642273?text=Hola%20F%C3%A9nix%20Club!%20Quiero%20este%20plan.%20Me%20interesa%20el%20Plan%20F%C3%A9nix%20Club%20de%20%2435.000."
+      target="_blank">
+      Quiero este plan
+    </a>
+
+  </div>
+
+  <div class="promo">
+    <h3>🔥 Promo 3×2</h3>
+    <p>
+      Vienen 3 personas y pagan solamente 2 membresías.
+    </p>
+
+    <br>
+
+    <a
+      class="btn"
+      href="https://wa.me/5491173642273?text=Hola%20F%C3%A9nix%20Club!%20Quiero%20consultar%20por%20la%20promo%203x2."
+      target="_blank">
+      Quiero consultar
+    </a>
+  </div>
 
 </section>
 
 
-<!-- ================= PLAN ================= -->
+<!-- PRODUCTOS -->
+<section id="productos">
 
-<section class="section" id="planes">
+  <h2 class="section-title">
+    Productos <span>Fénix</span>
+  </h2>
 
-<div class="container">
-
-<div class="section-head">
-
-<div>
-
-<div class="kicker">
-Membresías
-</div>
-
-<h2>
-Elegí tu plan
-</h2>
-
-</div>
-
-<p>
-Una membresía simple para entrenar sin complicaciones.
-</p>
-
-</div>
+  <p class="section-subtitle">
+    Productos disponibles en el gimnasio.
+  </p>
 
 
-<div class="card">
+  <div class="products">
 
-<div class="card-body">
+    <!-- PERFUMES -->
+    <div class="product-card">
 
-<div class="tag">
-Membresía mensual
-</div>
+      <img
+        src="1000103777.jpg"
+        alt="Perfumes Karma">
 
-<h3>
-Plan Fénix Gym
-</h3>
+      <div class="product-info">
 
-<div class="price">
-$35.000 <small>/ mes</small>
-</div>
+        <h3>Perfumes Karma</h3>
 
-<p>
-Acceso al gimnasio y sala de musculación.
-</p>
+        <p>
+          Descubrí tu próxima fragancia.
+        </p>
 
-<div class="actions">
+        <a
+          class="btn"
+          href="https://wa.me/5491173642273?text=Hola%20F%C3%A9nix%20Club!%20Quiero%20consultar%20por%20los%20Perfumes%20Karma."
+          target="_blank">
+          Quiero consultar
+        </a>
 
-<button
-class="btn mini"
-onclick="openPlanModal()">
+      </div>
 
-Quiero este plan
+    </div>
 
-</button>
 
-</div>
+    <!-- MATE -->
+    <div class="product-card">
 
-</div>
+      <img
+        src="1000103779.jpg"
+        alt="Mate Valeoli">
 
-</div>
+      <div class="product-info">
 
-</div>
+        <h3>Mate Valeoli</h3>
+
+        <p>
+          Mates Valeoli disponibles.
+        </p>
+
+        <a
+          class="btn"
+          href="https://wa.me/5491173642273?text=Hola%20F%C3%A9nix%20Club!%20Quiero%20consultar%20por%20el%20Mate%20Valeoli."
+          target="_blank">
+          Quiero consultar
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <!-- PROTEINA -->
+    <div class="product-card">
+
+      <img
+        src="1000103778.jpg"
+        alt="Proteína Fénix">
+
+      <div class="product-info">
+
+        <h3>Proteína Fénix</h3>
+
+        <p>
+          Best Whey.
+        </p>
+
+        <div class="product-price">
+          $20.000
+        </div>
+
+        <a
+          class="btn"
+          href="https://wa.me/5491173642273?text=Hola%20F%C3%A9nix%20Club!%20Quiero%20consultar%20por%20la%20Prote%C3%ADna%20F%C3%A9nix%20de%20%2420.000."
+          target="_blank">
+          Quiero esta proteína
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
 
 </section>
-
-
-<!-- ================= STORE ================= -->
-
-<section class="section" id="tienda">
-
-<div class="container">
-
-<div class="section-head">
-
-<div>
-
-<div class="kicker">
-Fénix Store
-</div>
-
-<h2>
-Tu entrenamiento, tu estilo.
-</h2>
-
-</div>
-
-<p>
-Proteínas, perfumes, mates y bebidas para acompañarte
-dentro y fuera del gimnasio.
-</p>
-
-</div>
-
-
-<div class="store-grid">
-
-
-<!-- PROTEÍNA -->
-
-<article class="card product">
-
-<div class="product-img">
-
-<img
-src="proteina.jpg"
-alt="Proteína Fénix">
-
-</div>
-
-<div class="product-body">
-
-<div class="tag">
-Suplementos
-</div>
-
-<h3>
-Proteína Fénix
-</h3>
-
-<p>
-Proteínas para acompañar tu entrenamiento.
-</p>
-
-<div class="product-price">
-$20.000
-</div>
-
-<div class="actions">
-
-<button
-class="btn mini"
-onclick="buy('Proteína Fénix - $20.000')">
-
-Quiero esta
-
-</button>
-
-</div>
-
-</div>
-
-</article>
-
-
-<!-- PERFUMES -->
-
-<article class="card product">
-
-<div class="product-img">
-
-<img
-src="karma.jpg"
-alt="Perfumes Karma">
-
-</div>
-
-<div class="product-body">
-
-<div class="tag">
-Perfumería
-</div>
-
-<h3>
-Perfumes Karma
-</h3>
-
-<p>
-Descubrí tu próxima fragancia.
-</p>
-
-<div class="actions">
-
-<button
-class="btn mini"
-onclick="buy('Perfumes Karma')">
-
-Quiero consultar
-
-</button>
-
-</div>
-
-</div>
-
-</article>
-
-
-<!-- MATE -->
-
-<article class="card product">
-
-<div class="product-img">
-
-<img
-src="valeoli.jpg"
-alt="Mate Valeoli">
-
-</div>
-
-<div class="product-body">
-
-<div class="tag">
-Mates
-</div>
-
-<h3>
-Mate Valeoli
-</h3>
-
-<p>
-Mates y accesorios para acompañarte todos los días.
-</p>
-
-<div class="actions">
-
-<button
-class="btn mini"
-onclick="buy('Mate Valeoli')">
-
-Quiero consultar
-
-</button>
-
-</div>
-
-</div>
-
-</article>
 
 
 <!-- BEBIDAS -->
+<section>
 
-<article class="card product">
+  <h2 class="section-title">
+    Bebidas <span>energéticas</span>
+  </h2>
 
-<div class="product-img">
+  <p class="section-subtitle">
+    Elegí tu bebida.
+  </p>
 
-<img
-src="bebidas.jpg"
-alt="Bebidas">
+  <div class="drinks">
 
-</div>
+    <div class="drink">
+      <h3>Monster</h3>
+      <p>Bebida energética.</p>
+      <div class="drink-price">$3.500</div>
 
-<div class="product-body">
+      <br>
 
-<div class="tag">
-Bebidas
-</div>
-
-<h3>
-Monster · Powerade · Agua
-</h3>
-
-<p>
-Elegí tu bebida para después del entrenamiento.
-</p>
-
-<div class="product-price">
-Monster $3.500<br>
-Powerade $3.000<br>
-Agua $3.000
-</div>
-
-<div class="actions">
-
-<button
-class="btn mini"
-onclick="buy('Bebidas: Monster, Powerade o Agua')">
-
-Quiero una
-
-</button>
-
-</div>
-
-</div>
-
-</article>
+      <a
+        class="btn"
+        href="https://wa.me/5491173642273?text=Hola%20F%C3%A9nix%20Club!%20Quiero%20una%20Monster%20de%20%243.500."
+        target="_blank">
+        Quiero una
+      </a>
+    </div>
 
 
-</div>
+    <div class="drink">
+      <h3>Powerade</h3>
+      <p>Bebida deportiva.</p>
+      <div class="drink-price">$3.000</div>
 
-</div>
+      <br>
 
-</section>
-
-
-<!-- ================= FOTOS ================= -->
-
-<section class="section" id="fotos">
-
-<div class="container">
-
-<div class="section-head">
-
-<div>
-
-<div class="kicker">
-Nuestro espacio
-</div>
-
-<h2>
-Fotos del gimnasio
-</h2>
-
-</div>
-
-<p>
-Conocé el espacio donde entrenamos.
-</p>
-
-</div>
+      <a
+        class="btn"
+        href="https://wa.me/5491173642273?text=Hola%20F%C3%A9nix%20Club!%20Quiero%20un%20Powerade%20de%20%243.000."
+        target="_blank">
+        Quiero una
+      </a>
+    </div>
 
 
-<div class="gym-gallery">
+    <div class="drink">
+      <h3>Agua</h3>
+      <p>Agua.</p>
+      <div class="drink-price">$3.000</div>
 
-<div class="gym-photo">
+      <br>
 
-<img
-src="gym.jpg"
-alt="Interior del gimnasio Fénix">
+      <a
+        class="btn"
+        href="https://wa.me/5491173642273?text=Hola%20F%C3%A9nix%20Club!%20Quiero%20un%20agua%20de%20%243.000."
+        target="_blank">
+        Quiero una
+      </a>
+    </div>
 
-<div class="gym-photo-caption">
-
-<div class="tag">
-Fénix Gym
-</div>
-
-<h3>
-Tu lugar para entrenar
-</h3>
-
-<p>
-Equipamiento, espacio de entrenamiento y ambiente Fénix.
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
+  </div>
 
 </section>
 
 
-<!-- ================= CONTACTO ================= -->
+<!-- GIMNASIO -->
+<section id="gimnasio">
 
-<section class="section" id="contacto">
+  <h2 class="section-title">
+    Nuestro <span>gimnasio</span>
+  </h2>
 
-<div class="container">
+  <p class="section-subtitle">
+    Conocé nuestras instalaciones.
+  </p>
 
-<div class="section-head">
+  <div class="gallery">
 
-<div>
+    <img
+      src="gimnasio.jpg"
+      alt="Gimnasio Fénix Club">
 
-<div class="kicker">
-Contacto
-</div>
-
-<h2>
-¿Nos vemos en Fénix?
-</h2>
-
-</div>
-
-<p>
-Consultá horarios, membresías y productos disponibles.
-</p>
-
-</div>
-
-
-<div class="contact">
-
-
-<div class="card">
-
-<h3>
-📲 WhatsApp
-</h3>
-
-<p>
-Escribinos para consultar precios, horarios
-o reservar tu lugar.
-</p>
-
-<div class="actions">
-
-<a
-class="btn mini"
-href="https://wa.me/5491173642273"
-target="_blank">
-
-Abrir WhatsApp
-
-</a>
-
-</div>
-
-</div>
-
-
-<div class="card">
-
-<h3>
-📸 Instagram
-</h3>
-
-<p>
-Seguinos para ver novedades, promociones y productos.
-</p>
-
-<div class="actions">
-
-<a
-class="btn secondary mini"
-href="https://www.instagram.com/"
-target="_blank">
-
-Ver Instagram
-
-</a>
-
-</div>
-
-</div>
-
-
-</div>
-
-</div>
+  </div>
 
 </section>
-
-</main>
 
 
 <footer>
 
-<div class="container">
+  <p>
+    <strong>FÉNIX CLUB</strong>
+  </p>
 
-© 2026 Fénix Gym · Entrenamiento + Fénix Store
+  <p>
+    Entrená. Mejorá. Superate.
+  </p>
 
-</div>
+  <p>
+    © 2026 Fénix Club
+  </p>
 
 </footer>
 
 
-<!-- ================= MODAL PLAN ================= -->
-
-<div
-class="modal-overlay"
-id="planModal"
-onclick="closeModal(event)">
-
-<div class="modal">
-
-<button
-class="modal-close"
-onclick="closeModal()">
-
-×
-
-</button>
-
-<div class="kicker">
-FÉNIX CLUB
-</div>
-
-<h2>
-Elegir Plan Fénix Club
-</h2>
-
-<form onsubmit="sendPlan(event)">
-
-<label>
-Nombre
-</label>
-
-<input
-id="clientName"
-type="text"
-placeholder="Tu nombre"
-required>
-
-
-<label>
-WhatsApp
-</label>
-
-<input
-id="clientPhone"
-type="tel"
-placeholder="Tu número"
-required>
-
-
-<button
-class="modal-submit"
-type="submit">
-
-Enviar consulta
-
-</button>
-
-</form>
-
-</div>
-
-</div>
-
-
 <script>
 
-/* ================= MENU CELULAR ================= */
+  function toggleMenu() {
+    const menu = document.getElementById("mobileMenu");
+    menu.classList.toggle("active");
+  }
 
-function toggleMenu(){
-
-const menu =
-document.getElementById("mobileMenu");
-
-menu.classList.toggle("open");
-
-}
-
-
-function closeMenu(){
-
-document
-.getElementById("mobileMenu")
-.classList.remove("open");
-
-}
-
-
-/* ================= PLAN ================= */
-
-function openPlanModal(){
-
-document
-.getElementById("planModal")
-.classList.add("show");
-
-document.body.style.overflow="hidden";
-
-document
-.getElementById("clientName")
-.focus();
-
-}
-
-
-function closeModal(event){
-
-if(
-event &&
-event.target !== event.currentTarget
-){
-
-return;
-
-}
-
-document
-.getElementById("planModal")
-.classList.remove("show");
-
-document.body.style.overflow="";
-
-}
-
-
-/* ================= WHATSAPP PLAN ================= */
-
-function sendPlan(event){
-
-event.preventDefault();
-
-const name =
-document
-.getElementById("clientName")
-.value
-.trim();
-
-const phone =
-document
-.getElementById("clientPhone")
-.value
-.trim();
-
-
-const message =
-"Hola Fénix Club! Soy " +
-name +
-". Quiero consultar por el Plan Fénix Club. " +
-"Mi WhatsApp es " +
-phone +
-".";
-
-
-window.open(
-
-"https://wa.me/5491173642273?text=" +
-encodeURIComponent(message),
-
-"_blank"
-
-);
-
-closeModal();
-
-}
-
-
-/* ================= PRODUCTOS ================= */
-
-function buy(product){
-
-const message =
-"Hola Fénix Gym! Quiero consultar por: " +
-product;
-
-
-window.open(
-
-"https://wa.me/5491173642273?text=" +
-encodeURIComponent(message),
-
-"_blank"
-
-);
-
-}
-
-
-/* ================= ESCAPE ================= */
-
-document.addEventListener(
-"keydown",
-function(event){
-
-if(event.key === "Escape"){
-
-closeModal();
-
-}
-
-});
+  function closeMenu() {
+    const menu = document.getElementById("mobileMenu");
+    menu.classList.remove("active");
+  }
 
 </script>
 
